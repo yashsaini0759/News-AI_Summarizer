@@ -1,0 +1,75 @@
+# 📰 AI Current Affairs Digest - Requirements
+# Python package dependencies with descriptions
+
+# 🌐 WEB FRAMEWORK & SERVER
+Flask==2.3.3
+# Core web framework for building the application
+# - Handles routing and API endpoints
+# - Serves HTML templates and static files
+# - Manages server-side logic
+
+# 📰 NEWS API INTEGRATION
+newsapi-python==0.2.7
+# Official Python client for NewsAPI
+# - Fetches real-time news headlines
+# - Handles country and category filtering
+# - Provides structured news data from various sources
+
+# ⏰ DATE & TIME HANDLING
+python-dateutil==2.8.2
+# Powerful extensions to the standard datetime module
+# - Calculates relative dates (daily, weekly, monthly)
+# - Handles complex date arithmetic
+# - Parses and formats various date strings
+
+# 🔄 HTTP REQUESTS & API COMMUNICATION
+requests==2.31.0
+# HTTP library for making API calls
+# - Communicates with OpenRouter API for AI summarization
+# - Fetches article content from news websites
+# - Handles web scraping with proper headers and timeouts
+
+# 🕸️ WEB SCRAPING & CONTENT EXTRACTION
+beautifulsoup4==4.12.2
+# Library for parsing HTML and XML documents
+# - Extracts main content from news articles
+# - Removes unwanted elements (scripts, ads, navigation)
+# - Implements multiple content extraction strategies
+
+# 🧹 HTML PARSING BACKEND
+soupsieve==2.5
+# CSS selector library for BeautifulSoup
+# - Enables advanced element selection
+# - Supports complex CSS queries for content extraction
+# - Required dependency for BeautifulSoup4
+
+# 🔧 UTILITY LIBRARIES
+Werkzeug==2.3.7
+# WSGI web application library (Flask dependency)
+# - Handles HTTP request/response cycle
+# - Provides development server capabilities
+# - Includes utilities for URL routing
+
+Jinja2==3.1.2
+# Templating engine for Flask
+# - Renders dynamic HTML templates
+# - Handles template inheritance and variables
+# - Provides template logic and filters
+
+# 📦 ADDITIONAL FLASK DEPENDENCIES
+click==8.1.7
+# Command-line interface creation kit
+# - Used by Flask for CLI commands
+# - Handles command-line argument parsing
+
+itsdangerous==2.1.2
+# Security library for Flask
+# - Provides cryptographic signing capabilities
+# - Secures session data and tokens
+
+# 🗂️ OPTIONAL: ENVIRONMENT VARIABLE MANAGEMENT
+python-dotenv==1.0.0
+# Loads environment variables from .env files
+# - Securely manages API keys and configuration
+# - Provides development/production environment switching
+# - Recommended for production deployments
