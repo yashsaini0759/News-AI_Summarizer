@@ -20,7 +20,7 @@
     <div class="header">
         <div class="header-content">
             <i class="fas fa-globe-americas icon-main breathing"></i>
-            <h1 class="glitch" data-text="GLOBAL CURRENT AFFAIRS">GLOBAL CURRENT AFFAIRS</h1>
+            <h1 class="glitch" data-text="AI CURRENT AFFAIRS DIGEST">AI CURRENT AFFAIRS DIGEST</h1>
             <p class="subtitle fade-in">AI-Powered News Intelligence Platform</p>
             <div class="header-decoration"></div>
         </div>
@@ -63,10 +63,29 @@
             </button>
         </div>
 
-        <!-- Custom Link Summarization Section -->
+        <!-- AI Features Section -->
+        <div class="ai-features-section">
+            <div class="feature-card">
+                <i class="fas fa-robot feature-icon"></i>
+                <h3>AI Summarization</h3>
+                <p>Get comprehensive summaries of any news article using advanced AI</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-question-circle feature-icon"></i>
+                <h3>Quiz Generator</h3>
+                <p>Test your knowledge with AI-generated quizzes from news articles</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-comments feature-icon"></i>
+                <h3>AI Chat Assistant</h3>
+                <p>Get answers and insights about current affairs</p>
+            </div>
+        </div>
+
+        <!-- Custom Link Section -->
         <div class="custom-link-section">
             <button id="custom-link-btn" class="custom-link-toggle">
-                <i class="fas fa-link"></i> Paste Your Own Link
+                <i class="fas fa-link"></i> Analyze Any Article
                 <i class="fas fa-chevron-down toggle-icon"></i>
             </button>
             <div id="custom-link-panel" class="custom-link-panel">
@@ -80,9 +99,14 @@
                         class="custom-url-input" 
                         placeholder="https://example.com/article..."
                     >
-                    <button id="custom-summarize-btn" class="custom-summarize-btn">
-                        <i class="fas fa-robot"></i> Generate AI Summary
-                    </button>
+                    <div class="custom-link-buttons">
+                        <button id="custom-summarize-btn" class="custom-summarize-btn">
+                            <i class="fas fa-robot"></i> Generate AI Summary
+                        </button>
+                        <button id="custom-quiz-btn" class="custom-quiz-btn">
+                            <i class="fas fa-question-circle"></i> Generate Quiz
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -126,6 +150,76 @@
                 </div>
                 <div id="summary-content" class="summary-content"></div>
             </div>
+        </div>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-question-circle"></i> Article Quiz</h2>
+                <button class="modal-close" id="quiz-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="quiz-loading" class="quiz-loading">
+                    <div class="ai-thinking">
+                        <div class="ai-dot"></div>
+                        <div class="ai-dot"></div>
+                        <div class="ai-dot"></div>
+                    </div>
+                    <p>Generating quiz questions...</p>
+                    <p style="font-size: 0.9em; color: #b0b8d4; margin-top: 10px;">Powered by Gemini Flash</p>
+                </div>
+                <div id="quiz-content" class="quiz-content"></div>
+                <div id="quiz-results" class="quiz-results"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Toggle Button -->
+    <button id="chatbot-toggle" class="chatbot-toggle">
+        <i class="fas fa-robot"></i>
+        <span class="chatbot-notification"></span>
+    </button>
+
+    <!-- Chatbot Panel -->
+    <div id="chatbot-panel" class="chatbot-panel">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <i class="fas fa-robot"></i>
+                News AI Assistant
+            </div>
+            <div class="chatbot-controls">
+                <button id="chatbot-clear" class="chatbot-clear" title="Clear conversation">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <button id="chatbot-close" class="chatbot-close" title="Close chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div id="chatbot-messages" class="chatbot-messages">
+            <div class="chat-message bot-message">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <p>Hello! I'm your AI news assistant. I can help you understand current affairs, explain news topics, or discuss recent events. How can I assist you today?</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input-area">
+            <input 
+                type="text" 
+                id="chatbot-input" 
+                class="chatbot-input" 
+                placeholder="Ask me about current affairs..."
+            >
+            <button id="chatbot-send" class="chatbot-send">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </div>
     </div>
 

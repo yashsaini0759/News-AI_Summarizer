@@ -5,10 +5,15 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import re
+import json
+
+# Import the quiz and chatbot modules
+from quiz import quiz_bp
+from chatbot import chatbot_bp
 
 # --- API KEYS & CONFIGURATION ---
-NEWS_API_KEY = "ENTER_YOUR_API" 
-OPENROUTER_API_KEY = "ENTER_YOUR_API"
+NEWS_API_KEY = "18e2e010c3a248b6b92920a880dd5425" 
+OPENROUTER_API_KEY = "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"
 
 newsapi = NewsApiClient(api_key=NEWS_API_KEY)
 
@@ -22,7 +27,15 @@ CATEGORIES = ['General', 'Business', 'Technology', 'Science', 'Health', 'Sports'
 # Initialize Flask App
 app = Flask(__name__)
 
-print("✅ Enhanced News Aggregator with Robust Summarization")
+# Register blueprints from other modules
+app.register_blueprint(quiz_bp)
+app.register_blueprint(chatbot_bp)
+
+print("🚀 AI Current Affairs Digest - All Services Integrated")
+
+# =============================================================================
+# NEWS SUMMARIZATION FUNCTIONS
+# =============================================================================
 
 def extract_article_text_robust(url):
     """Enhanced article extraction with multiple fallback strategies."""
@@ -63,7 +76,6 @@ def extract_article_text_robust(url):
         json_ld = soup.find('script', type='application/ld+json')
         if json_ld:
             try:
-                import json
                 data = json.loads(json_ld.string)
                 if isinstance(data, dict) and 'articleBody' in data:
                     article_text = data['articleBody']
@@ -78,7 +90,7 @@ def extract_article_text_robust(url):
             for article in articles:
                 text = article.get_text(separator=' ', strip=True)
                 word_count = len(text.split())
-                if word_count > 100:  # Only consider substantial articles
+                if word_count > 100:
                     article_text = text
                     extraction_method = "article_tag"
                     print("✅ Extracted via article tag")
@@ -125,8 +137,7 @@ def extract_article_text_robust(url):
                 for p in all_paragraphs:
                     text = p.get_text(strip=True)
                     words = text.split()
-                    if len(words) > 15 and len(words) < 200:  # Reasonable paragraph length
-                        # Avoid navigation, links, etc.
+                    if len(words) > 15 and len(words) < 200:
                         if not any(word in text.lower() for word in ['login', 'sign up', 'subscribe', 'read more', 'click here']):
                             good_paragraphs.append(text)
                 
@@ -215,7 +226,7 @@ Summary:"""
             result = response.json()
             if 'choices' in result and result['choices']:
                 summary = result['choices'][0]['message']['content'].strip()
-                if len(summary.split()) >= 15:  # Ensure substantial summary
+                if len(summary.split()) >= 15:
                     print("✅ OpenRouter summary successful")
                     return summary
         
@@ -245,7 +256,11 @@ def create_basic_summary(text, title, url):
     except:
         return f"Summary unavailable for this article. Please visit the source for full content: {url}"
 
-# --- NEWS API ENDPOINT (unchanged) ---
+# =============================================================================
+# FLASK ROUTES - MAIN APP
+# =============================================================================
+
+# --- NEWS API ENDPOINT ---
 @app.route('/api/news', methods=['POST'])
 def fetch_news_api():
     try:
@@ -306,7 +321,7 @@ def fetch_news_api():
             'message': f'API connection failed: {str(e)}'
         }), 500
 
-# --- ENHANCED SUMMARIZATION ENDPOINT ---
+# --- SUMMARIZATION ENDPOINT ---
 @app.route('/api/summarize', methods=['POST'])
 def summarize_article():
     try:
@@ -388,13 +403,35 @@ def test_api_key():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+# --- MAIN ROUTE ---
 @app.route('/')
 def index():
     return render_template('index.html', countries=COUNTRIES, categories=CATEGORIES)
 
+# --- HEALTH CHECK ---
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({
+        'status': 'ok', 
+        'services': {
+            'main_app': 'running',
+            'quiz_service': 'integrated', 
+            'chatbot_service': 'integrated'
+        }
+    })
+
 if __name__ == '__main__':
     print("\n" + "="*60)
-    print("🚀 Starting Enhanced News Aggregator")
-    print("📰 Multiple extraction strategies + Fallback summaries")
+    print("🚀 AI Current Affairs Digest - All Services Integrated")
+    print("📰 News Summarization | 🤖 AI Chatbot | ❓ Quiz Generator")
+    print("="*60)
+    print("✨ Features:")
+    print("  • Smart News Aggregation with AI Summaries")
+    print("  • Interactive Quiz Generator for Articles") 
+    print("  • AI Chatbot for News Assistance")
+    print("  • Multi-strategy Content Extraction")
+    print("  • Robust Error Handling & Fallbacks")
+    print("="*60)
+    print("📋 All services running on single port 5000")
     print("="*60 + "\n")
     app.run(debug=True, threaded=True, port=5000)
